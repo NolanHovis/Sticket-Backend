@@ -4,6 +4,7 @@ module BaseAPI
       service = Service.new(
         name: params[:name],
         ticket_identifier: params[:ticket_identifier]
+        current_user: params[:current_user]
         )
       service.save!
       return ServiceContract.error('Error Creating Client Service') unless service.valid?
@@ -15,6 +16,7 @@ module BaseAPI
       
       service.name = params[:name],
       service.ticket_identifier = params[:ticket_identifier]
+      service.current_user = params[:current_user]
 
       service.save!
       return ServiceContract.error('Error Updating Client Service') unless service.valid?
