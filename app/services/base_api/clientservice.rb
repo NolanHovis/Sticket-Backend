@@ -1,33 +1,23 @@
 module BaseAPI
   module ClientServices
-    def self.create(params)
-      service = Service.new(
-        name: params[:name],
-        ticket_identifier: params[:ticket_identifier]
-        current_user: params[:current_user]
-        )
-      service.save!
+    def self.create(params, current_user)
+      service = current_user.service.new
       return ServiceContract.error('Error Creating Client Service') unless service.valid?
       ServiceContract.error(service)
     end
 
-    def self.update(service_id,params)
-      service = Service.find(service.id)
+    def self.update(service_id,params, current_user)
+      service = current_user.service.find(service_id)
       
-      service.name = params[:name],
-      service.ticket_identifier = params[:ticket_identifier]
-      service.current_user = params[:current_user]
-
-      service.save!
-      return ServiceContract.error('Error Updating Client Service') unless service.valid?
+     return ServiceContract.error('Error Updating Client Service') unless service.update(params)
       ServiceContract.error(service)
     end
 
-    def self.delete(service_id)
-      service = Service.find(service_id)
-      return ServiceContract.error('Error Deleting Service') unless service.destroy
+    def self.delete(service_id,current_id)
+      service = current_user.service.find(service_id)
+      ServiceContract.error('Error Deleting Service') and return unless service.destroy
 
-      ServiceContract.success(payload: service)
+      ServiceContract.success(payload: nil)
     end
   end
 end
