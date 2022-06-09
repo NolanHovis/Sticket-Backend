@@ -1,4 +1,4 @@
-model Team_User
+module Team_User
 
   def self.new_team_user(params, current_user)
     team_user = current_user.team_user.new(params)
