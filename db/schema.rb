@@ -32,6 +32,14 @@ ActiveRecord::Schema.define(version: 2022_06_07_012134) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "priorities", force: :cascade do |t|
+    t.string "label"
+    t.string "string"
+    t.integer "sort_order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "slug"
     t.datetime "created_at", precision: 6, null: false
