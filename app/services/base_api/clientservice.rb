@@ -1,7 +1,7 @@
 module BaseAPI
   module ClientServices
     def self.create(params, current_user)
-      service = current_user.service.new
+      service = current_user.service.new(param)
       return ServiceContract.error('Error Creating Client Service') unless service.valid?
       ServiceContract.error(service)
     end
@@ -13,7 +13,7 @@ module BaseAPI
       ServiceContract.error(service)
     end
 
-    def self.delete(service_id,current_id)
+    def self.delete(service_id,current_user)
       service = current_user.service.find(service_id)
       ServiceContract.error('Error Deleting Service') and return unless service.destroy
 
