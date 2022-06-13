@@ -9,8 +9,8 @@ class CreateTickets < ActiveRecord::Migration[6.1]
       t.references :client, null: false, foreign_key: true
       t.references :priority, null: false, foreign_key: true
       
-      # not quite sure about this reference here. Its a user mask, but I don't think there would be a way to reference creator
-      t.references :creator, null: false, foreign_key: true
+      # add user reference for potential creator masking
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
