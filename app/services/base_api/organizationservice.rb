@@ -14,7 +14,7 @@ module BaseAPI
     end
 
     def self.delete(organization_id,current_user)
-      client = current_user.organization.find(organization_id)
+      organization = current_user.organization.find(organization_id)
       ServiceContract.error('Error Deleting Organization') and return unless organization.destroy
 
       ServiceContract.success(payload: nil)
