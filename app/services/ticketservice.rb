@@ -1,4 +1,4 @@
-module BaseAPI
+
   module TicketServices
     def self.create(params, current_user)
       ticket = current_user.ticket.new(params)
@@ -20,4 +20,4 @@ module BaseAPI
       ServiceContract.success(payload: nil)
     end
   end
-end
+
