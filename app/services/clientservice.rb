@@ -1,4 +1,4 @@
-module BaseAPI
+
   module ClientServices
     def self.create(params, current_user)
       client = current_user.client.new(params)
@@ -20,4 +20,4 @@ module BaseAPI
       ServiceContract.success(payload: nil)
     end
   end
-end
+
