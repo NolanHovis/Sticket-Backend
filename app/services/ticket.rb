@@ -1,5 +1,5 @@
 
-  module TicketServices
+  module Ticket
     def self.create(params, current_user)
       ticket = current_user.ticket.new(params)
       return ServiceContract.error('Error Creating Ticket Assignment ') unless ticket.valid?
