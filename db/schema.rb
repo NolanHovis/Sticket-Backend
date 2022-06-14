@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2022_06_08_014101) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +48,16 @@ ActiveRecord::Schema.define(version: 2022_06_08_014101) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+
+  create_table "teams", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_teams_on_client_id"
+    t.index ["organization_id"], name: "index_teams_on_organization_id"
+  end
+
   create_table "statuses", force: :cascade do |t|
     t.string "label"
     t.integer "sort_order"
@@ -53,6 +65,7 @@ ActiveRecord::Schema.define(version: 2022_06_08_014101) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["organization_id"], name: "index_statuses_on_organization_id"
+
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -90,6 +103,8 @@ ActiveRecord::Schema.define(version: 2022_06_08_014101) do
   end
 
   add_foreign_key "clients", "organizations"
+  add_foreign_key "teams", "clients"
+  add_foreign_key "teams", "organizations"
   add_foreign_key "statuses", "organizations"
   add_foreign_key "tokens", "users"
   add_foreign_key "user_roles", "roles"
