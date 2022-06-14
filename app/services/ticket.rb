@@ -1,23 +1,21 @@
+module Ticket
 
-  module Ticket
-    def self.create(params, current_user)
-      ticket = current_user.ticket.new(params)
-      return ServiceContract.error('Error Creating Ticket Assignment ') unless ticket.valid?
-      ServiceContract.error(ticket)
-    end
-
-    def self.update(ticket_id, params, current_user)
-      ticket = current_user.ticket.find(ticket_id)
+    def self.new_ticket(params, current_user)
+        ticket = current_user.tickets.new(params)
+        return ServiceContract.error("Error creating ticket!") unless ticket.save
+        ServiceContract.success(ticket)
+      end
+    
+      def self.update_ticket(ticket_id, params, current_user)
+        ticket = current_user.tickets.find(ticket_id)
+        return ServiceContract.error("Error updating ticket!") unless ticket.update(params)
+        ServiceContract.success(ticket)
+      end
+    
+      def self.destroy_ticket(ticket_id, current_user)
+        ticket = current_user.tickets.find(ticket_id)
+        ServiceContract.error("Error deleting ticket!") and return unless ticket.destroy
+        ServiceContract.success(payload: nil)
+      end
       
-     return ServiceContract.error('Error Updating Ticket Assignment') unless ticket.update(params)
-      ServiceContract.error(ticket)
-    end
-
-    def self.delete(ticket_id,current_user)
-      ticket = current_user.ticket.find(ticket_id)
-      ServiceContract.error('Error Deleting Ticket Assignment') and return unless ticket.destroy
-
-      ServiceContract.success(payload: nil)
-    end
-  end
-
+end
