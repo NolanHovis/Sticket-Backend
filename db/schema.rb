@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_08_014101) do
+ActiveRecord::Schema.define(version: 2022_06_11_170639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,23 @@ ActiveRecord::Schema.define(version: 2022_06_08_014101) do
     t.index ["organization_id"], name: "index_statuses_on_organization_id"
   end
 
+  create_table "tickets", force: :cascade do |t|
+    t.string "title"
+    t.string "friendly_ticket_id"
+    t.string "description"
+    t.boolean "archived"
+    t.bigint "organization_id", null: false
+    t.bigint "client_id", null: false
+    t.bigint "priority_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_tickets_on_client_id"
+    t.index ["organization_id"], name: "index_tickets_on_organization_id"
+    t.index ["priority_id"], name: "index_tickets_on_priority_id"
+    t.index ["user_id"], name: "index_tickets_on_user_id"
+  end
+
   create_table "tokens", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "value"
@@ -91,6 +108,10 @@ ActiveRecord::Schema.define(version: 2022_06_08_014101) do
 
   add_foreign_key "clients", "organizations"
   add_foreign_key "statuses", "organizations"
+  add_foreign_key "tickets", "clients"
+  add_foreign_key "tickets", "organizations"
+  add_foreign_key "tickets", "priorities"
+  add_foreign_key "tickets", "users"
   add_foreign_key "tokens", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
