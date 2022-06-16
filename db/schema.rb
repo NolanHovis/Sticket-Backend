@@ -70,6 +70,22 @@ ActiveRecord::Schema.define(version: 2022_06_11_170639) do
     t.index ["organization_id"], name: "index_tickets_on_organization_id"
     t.index ["priority_id"], name: "index_tickets_on_priority_id"
     t.index ["user_id"], name: "index_tickets_on_user_id"
+
+  create_table "team_user", force: :cascade do |t|
+    t.integer "role"
+    t.bigint "team_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["team_id"], name: "index_team_user_on_team_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_teams_on_client_id"
+    t.index ["organization_id"], name: "index_teams_on_organization_id"
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -112,6 +128,9 @@ ActiveRecord::Schema.define(version: 2022_06_11_170639) do
   add_foreign_key "tickets", "organizations"
   add_foreign_key "tickets", "priorities"
   add_foreign_key "tickets", "users"
+  add_foreign_key "team_user", "teams"
+  add_foreign_key "teams", "clients"
+  add_foreign_key "teams", "organizations"
   add_foreign_key "tokens", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
