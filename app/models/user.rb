@@ -73,4 +73,6 @@ class User < ApplicationRecord
   def name
     "#{first_name} #{last_name}"
   end
+
+  enum role: Enumerable::UserRoles.options, _prefix: :userrole
 end
