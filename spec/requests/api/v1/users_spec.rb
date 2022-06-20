@@ -5,19 +5,24 @@ RSpec.describe 'api/v1/users', type: :request do
   path '/api/v1/users/login' do
 
     post('login user') do
+
+      tags 'Login User'
+      consumes 'multipart/form-data'
+      security[token: []]
+      parameter name: :user, in: :formData, schema: {
+        type: :object, 
+        properties: {
+          email: { type: string, required: true, description: 'required', example: 'hello@gmail.com' },
+          password: {type: string, required: true, description: 'required', example: 'password12345' }
+        },
+        required: %w[email password]
+      }
+
       response(200, 'successful') do
+        run_test!
+      end
 
-        tags 'Login User'
-        security[token: []]
-        parameter name: 
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
+      response(401, 'bad credentials') do 
         run_test!
       end
     end
@@ -26,15 +31,23 @@ RSpec.describe 'api/v1/users', type: :request do
   path '/api/v1/users/logout' do
 
     delete('logout user') do
-      response(200, 'successful') do
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
+      tags 'Logout User'
+      consumes 'multipart/form-data'
+      security [token: []]
+      parameter name: :user, in: :formData, schema: {
+        type: :object,
+        properties: {},
+        required: %w[]
+      }
+
+      parameter name: :token, in: :header, schema: {
+        type: :object,
+        properties: {},
+        required: %w[]
+      }
+
+      response(200, 'successful') do
         run_test!
       end
     end
@@ -44,14 +57,6 @@ RSpec.describe 'api/v1/users', type: :request do
 
     get('me user') do
       response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
         run_test!
       end
     end
@@ -60,15 +65,18 @@ RSpec.describe 'api/v1/users', type: :request do
   path '/api/v1/users/create' do
 
     post('create user') do
-      response(200, 'successful') do
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
+      tags 'See User'
+      consumes 'multipart/form-data'
+      security[token: []]
+      parameter name: :user, in: :formData, schema: {
+        type: :object, 
+        properties: {
+          email: { type: string, required: true, description: 'required', example: 'hello@gmail.com' }
+        },
+        required: %w[email]
+      }
+      response(200, 'successful') do
         run_test!
       end
     end
