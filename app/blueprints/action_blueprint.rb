@@ -5,10 +5,6 @@ class ActionBlueprint < Blueprinter::Base
     identifier :id
     fields :comment, :movement, :attachment, :assignment, :priority
   
-    view :normal do
-      fields :comment, :movement, :attachment, :assignment, :priority
-    end
-  
-  end
+     end
   
   
