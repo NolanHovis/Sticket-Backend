@@ -2,7 +2,7 @@ module Api
   module V1
     class ClientController < ApplicationController
       def create 
-        result = BaseApi::Client.new_client(params)
+        result = Client.new_client(params)
         render_error(errors: 'There was a problem creating a new client', status: 400) and return unless result.success?
         payload = {
           user: ClientBlueprint.render_as_hash(result.payload, view: :normal)
