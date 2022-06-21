@@ -8,14 +8,14 @@ RSpec.describe 'api/v1/users', type: :request do
 
       tags 'Login User'
       consumes 'multipart/form-data'
-      security[token: []]
+      security [token: []]
       parameter name: :user, in: :formData, schema: {
         type: :object, 
         properties: {
-          email: { type: string, required: true, description: 'required', example: 'hello@gmail.com' },
-          password: {type: string, required: true, description: 'required', example: 'password12345' }
+          email: { type: :string, required: true, description: 'required', example: 'hello@gmail.com' },
+          password: {type: :string, required: true, description: 'required', example: 'password12345' }
         },
-        required: %w[email password]
+        # required: %w[email password]
       }
 
       response(200, 'successful') do
@@ -35,12 +35,6 @@ RSpec.describe 'api/v1/users', type: :request do
       tags 'Logout User'
       consumes 'multipart/form-data'
       security [token: []]
-      parameter name: :user, in: :formData, schema: {
-        type: :object,
-        properties: {},
-        required: %w[]
-      }
-
       parameter name: :token, in: :header, schema: {
         type: :object,
         properties: {},
@@ -68,11 +62,11 @@ RSpec.describe 'api/v1/users', type: :request do
 
       tags 'See User'
       consumes 'multipart/form-data'
-      security[token: []]
+      security [token: []]
       parameter name: :user, in: :formData, schema: {
         type: :object, 
         properties: {
-          email: { type: string, required: true, description: 'required', example: 'hello@gmail.com' }
+          email: { type: :string, required: true, description: 'required', example: 'hello@gmail.com' }
         },
         required: %w[email]
       }
