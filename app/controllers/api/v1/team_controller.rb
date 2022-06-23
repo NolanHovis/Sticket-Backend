@@ -5,7 +5,6 @@ module Api
         #gets list of teams for the current user
         def get
             @team = current_user.Teams
-             
         end
 
         #removed team from current user 
