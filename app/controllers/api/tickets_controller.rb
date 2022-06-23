@@ -1,27 +1,7 @@
 module Api
   module V1
-    module TeamController < Api::V1::ApplicationController
+    class TicketsController < Api::V1::ApplicationController
       
-        #removed team from current user 
-        def remove
-          result = Team.remove_team(params[:id],team_params, @current_user)
-          payload = {
-            team: TeamBlueprinter.render_as_hash(results.payload)
-          }
-          render_sucess(payload: payload)
-        end  
-            
-
-        end
-
-        #assigns a new team to the user
-        def assign
-          result = Team.assign_team(params[:id], team_params, @current_user)
-          payload = {
-            team: TeamBluePrinter.render_as_hash(results.payload)
-          }
-          render_sucess(payload: payload)
-        end
 
         #creates a new ticket
         def create
