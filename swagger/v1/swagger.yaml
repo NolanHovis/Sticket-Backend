@@ -1,0 +1,87 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/users/login":
+    post:
+      summary: login user
+      tags:
+      - Login User
+      security:
+      - token: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '401':
+          description: bad credentials
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  required: true
+                  description: required
+                  example: hello@gmail.com
+                password:
+                  type: string
+                  required: true
+                  description: required
+                  example: password12345
+  "/api/v1/users/logout":
+    delete:
+      summary: logout user
+      tags:
+      - Logout User
+      security:
+      - token: []
+      parameters:
+      - name: token
+        in: header
+        schema:
+          type: object
+          properties: {}
+          required: []
+      responses:
+        '200':
+          description: successful
+  "/api/v1/users/me":
+    get:
+      summary: me user
+      responses:
+        '200':
+          description: successful
+  "/api/v1/users/create":
+    post:
+      summary: create user
+      tags:
+      - See User
+      security:
+      - token: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  required: true
+                  description: required
+                  example: hello@gmail.com
+              required:
+              - email
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
