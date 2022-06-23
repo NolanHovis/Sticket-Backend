@@ -31,4 +31,12 @@ module Api
             @organization = current_user.Organization
         end
 
+
+        private
+        def organizaion_params 
+          params.require(:organization).permit(:name, :subdomain, :orgtype)  
+        end
+
       end
+    end      
+end    
