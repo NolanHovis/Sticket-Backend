@@ -20,8 +20,7 @@ module Api
 
      private
         def ticket_params 
-          params.require(:ticket).permit(:title, :friendly_ticket_id, :description, :archived, :organization_id, :client_id,
-            :priority_id, :user_id, :created_at, :updated_at, :organization_id)  
+          params.require(:ticket).permit(:title, :friendly_ticket_id, :description, :archived, :organization_id, :client_id)  
         end
 
     end
