@@ -13,7 +13,10 @@ module Api
         end
 
         def change_status
+            action = Action.find(params[:action_id])
+            status = Status.find(params[:action_id])
 
+            result = 
         end
     
         def change_priority
