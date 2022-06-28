@@ -33,9 +33,9 @@ module Api
 
         #ticket status update
         def change_status
-          result = Ticket.destroy_ticket(params[:id], @current_user)
-          render_error(errors: 'Error deleting ticket!') and return unless result.success?
-          render_sucess(payload: nil)
+          # result = Ticket.destroy_ticket(params[:id], @current_user)
+          # render_error(errors: 'Error deleting ticket!') and return unless result.success?
+          # render_sucess(payload: nil)
         end
 
      private
