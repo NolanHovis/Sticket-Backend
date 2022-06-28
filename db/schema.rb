@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_11_170639) do
+ActiveRecord::Schema.define(version: 2022_06_27_234123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,24 @@ ActiveRecord::Schema.define(version: 2022_06_11_170639) do
     t.index ["organization_id"], name: "index_statuses_on_organization_id"
   end
 
+  create_table "teams", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_teams_on_client_id"
+    t.index ["organization_id"], name: "index_teams_on_organization_id"
+  end
+
+  create_table "ticket_assignments", force: :cascade do |t|
+    t.bigint "ticket_id", null: false
+    t.bigint "team_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["team_user_id"], name: "index_ticket_assignments_on_team_user_id"
+    t.index ["ticket_id"], name: "index_ticket_assignments_on_ticket_id"
+  end
+
   create_table "tickets", force: :cascade do |t|
     t.string "title"
     t.string "friendly_ticket_id"
@@ -66,26 +84,12 @@ ActiveRecord::Schema.define(version: 2022_06_11_170639) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "status_id"
     t.index ["client_id"], name: "index_tickets_on_client_id"
     t.index ["organization_id"], name: "index_tickets_on_organization_id"
     t.index ["priority_id"], name: "index_tickets_on_priority_id"
+    t.index ["status_id"], name: "index_tickets_on_status_id"
     t.index ["user_id"], name: "index_tickets_on_user_id"
-
-  create_table "team_user", force: :cascade do |t|
-    t.integer "role"
-    t.bigint "team_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["team_id"], name: "index_team_user_on_team_id"
-  end
-
-  create_table "teams", force: :cascade do |t|
-    t.bigint "client_id", null: false
-    t.bigint "organization_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id"], name: "index_teams_on_client_id"
-    t.index ["organization_id"], name: "index_teams_on_organization_id"
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -124,13 +128,14 @@ ActiveRecord::Schema.define(version: 2022_06_11_170639) do
 
   add_foreign_key "clients", "organizations"
   add_foreign_key "statuses", "organizations"
+  add_foreign_key "teams", "clients"
+  add_foreign_key "teams", "organizations"
+  add_foreign_key "ticket_assignments", "tickets"
   add_foreign_key "tickets", "clients"
   add_foreign_key "tickets", "organizations"
   add_foreign_key "tickets", "priorities"
+  add_foreign_key "tickets", "statuses"
   add_foreign_key "tickets", "users"
-  add_foreign_key "team_user", "teams"
-  add_foreign_key "teams", "clients"
-  add_foreign_key "teams", "organizations"
   add_foreign_key "tokens", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
