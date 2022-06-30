@@ -33,7 +33,7 @@ module Api
 
 
         private
-        def organizaion_params 
+        def organization_params 
           params.require(:organization).permit(:name, :subdomain, :orgtype)  
         end
 
