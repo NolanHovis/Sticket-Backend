@@ -28,6 +28,8 @@ Rails.application.routes.draw do
         post :create
       end
       resources :client
-    end
+      resources :organization   
+      resources :status
+     end
   end
 end
