@@ -27,7 +27,15 @@ Rails.application.routes.draw do
         get :me
         post :create
       end
+
       resources :client
+
+      resources :organization
+      namespace :organization do
+        get :user_organizations
+        
+
+      end
     end
   end
 end

@@ -1,6 +1,6 @@
 module Api
     module V1
-    
+      
       class OrganizationController < Api::V1::ApplicationController
         
         def create 
@@ -27,8 +27,9 @@ module Api
             render_success(payload: nil)
         end
 
-        def get    
+        def user_organizations    
             @organization = current_user.Organization
+            
         end
 
 
