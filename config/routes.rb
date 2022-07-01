@@ -27,6 +27,13 @@ Rails.application.routes.draw do
         get :me
         post :create
       end
+
+      namespace :client do
+        post :create
+        delete :destroy
+        post :update
+      end
+
     end
   end
 end

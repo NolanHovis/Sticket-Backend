@@ -13,7 +13,7 @@ module Enumerable
         }.freeze      
         
         def self.options        
-          UserRoles_OPTIONS      
+          USER_ROLES_OPTIONS      
         end      
         
         # This method allows us to return an array of the integer, sym/key, and human readable value for populating form selectors.
