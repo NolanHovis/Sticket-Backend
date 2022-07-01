@@ -1,5 +1,5 @@
 
-  module ClientServices
+  module ClientService
     def self.create(params, current_user)
       client = current_user.client.new(params)
       return ServiceContract.error('Error Creating Client Service') unless client.valid?
