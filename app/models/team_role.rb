@@ -1,2 +1,0 @@
-class TeamRole < ApplicationRecord
-end
